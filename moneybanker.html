@@ -1,0 +1,31 @@
+<head>
+  <title>MoneyBanker</title>
+</head>
+
+<body>
+  {{> main}}
+</body>
+
+<template name="main">
+  <h1>Hello World!</h1>
+  {{ greeting }}
+
+  <h3>Costs</h3>
+  <input type="text" value="" id='name' />
+  <input type="text" value="" id='cost' />
+  <input type="button" value="Add cost" id="add-cost" />
+
+  <ul>
+    {{#each costs}}
+      {{> cost}}
+    {{/each}}
+  </ul>
+
+</template>
+
+<template name='cost'>
+  <li>
+    {{ name }}
+    {{ cost }}
+  </li>
+</template>
