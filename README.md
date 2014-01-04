@@ -1,0 +1,4 @@
+moneybanker
+===========
+
+Simple meteor app
