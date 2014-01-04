@@ -5,8 +5,11 @@
 
 standard-app-packages
 autopublish
-insecure
 preserve-inputs
 coffeescript
 bootstrap
 accounts-google
+accounts-base
+accounts-password
+accounts-ui
+underscore
