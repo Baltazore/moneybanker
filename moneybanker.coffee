@@ -19,9 +19,8 @@ Incomes.allow
   update: (userId, docs, fields, modifier) ->
     _.all(docs, (doc) ->
       doc.owner == userId)
-  remove: (userId, docs) ->
-    _.all(docs, (doc) ->
-      doc.owner == userId)
+  remove: (userId, doc) ->
+    (userId && doc.owner == userId)
 Incomes.deny
   update: (userID, docs, fields, modifier) ->
     fields.indexOf("owner") > -1
@@ -38,6 +37,18 @@ if Meteor.isClient
 
   Template.main.incomes = ->
     Incomes.find().fetch()
+
+  Template.main.totalCosts = ->
+    result = 0.0
+    Costs.find().map (doc) ->
+      result += parseFloat(doc.cost)
+    result
+
+  Template.main.totalIncomes = ->
+    result = 0.0
+    Incomes.find().map (doc) ->
+      result += parseFloat(doc.cost)
+    result
 
   Template.main.events
     'click .btn' : (e, t) ->
