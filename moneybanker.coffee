@@ -7,9 +7,8 @@ Costs.allow
   update: (userId, docs, fields, modifier) ->
     _.all(docs, (doc) ->
       doc.owner == userId)
-  remove: (userId, docs) ->
-    _.all(docs, (doc) ->
-      doc.owner == userId)
+  remove: (userId, doc) ->
+    (userId && doc.owner == userId)
 Costs.deny
   update: (userID, docs, fields, modifier) ->
     fields.indexOf("owner") > -1
@@ -28,6 +27,8 @@ Incomes.deny
     fields.indexOf("owner") > -1
 
 if Meteor.isClient
+  Meteor.subscribe "costs"
+  Meteor.subscribe "incomes"
 
   Template.main.greeting = ->
     "Welcome to MoneyBanker"
@@ -99,3 +100,10 @@ if Meteor.isClient
         Costs.remove(t.data._id)
       if Incomes.find(t.data._id)
         Incomes.remove(t.data._id)
+
+if Meteor.isServer
+  Meteor.publish "costs", ->
+    Costs.find({ owner: this.userId})
+  Meteor.publish "incomes", ->
+    Incomes.find({ owner: this.userId})
+
