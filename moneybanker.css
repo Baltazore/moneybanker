@@ -5,3 +5,7 @@ body{
 .footer{
   margin-bottom: 30px
 }
+
+.max-width {
+  max-width:1170px;
+}
