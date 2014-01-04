@@ -3,9 +3,6 @@ Costs = new Meteor.Collection("costs")
 addCost = (name, cost) ->
   Costs.insert({name: name, cost: cost})
 
-removeCost = (data) ->
-  debugger
-
 if Meteor.isClient
 
   Template.main.greeting = ->
@@ -33,15 +30,28 @@ if Meteor.isClient
           cost.value = ""
 
   Template.cost.editing = ->
-    return Session.get("edit-"+this._id)
+    !!Session.get("edit-"+this._id)
+
+  Template.cost.rendered = ->
+    input = this.find("input")
+    if input
+      input.focus()
 
   Template.cost.events
-    'click li' : (e, t) ->
+    'click .name' : (e, t) ->
       Session.set("edit-"+t.data._id, true)
 
-    'keypress input' : (e, t) ->
+    'keydown input' : (e, t) ->
       if e.keyCode == 13
         name = t.find('input#edit-name').value
         cost = t.find('input#edit-cost').value
         Costs.update(t.data._id, { $set: {name: name, cost: cost} })
         Session.set("edit-"+t.data._id, false)
+
+    'keydown' : (e, t) ->
+      if e.keyCode == 27
+        Session.set("edit-"+t.data._id, false)
+
+    'click .del' : (e, t) ->
+      Costs.remove(t.data._id)
+

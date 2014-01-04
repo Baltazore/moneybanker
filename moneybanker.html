@@ -28,8 +28,10 @@
     {{#if editing}}
       <input type="text" id="edit-name" value="{{ name }}" />
       <input type="text" id="edit-cost" value="{{ cost }}" />
-    {{/if}}
+    {{else}}
       <span class="name" >{{ name }} </span>
       <span class="cost" >{{ cost }} </span>
+      <span class="del" > (X) </span>
+    {{/if}}
   </li>
 </template>
