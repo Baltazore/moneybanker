@@ -25,7 +25,11 @@
 
 <template name='cost'>
   <li>
-    {{ name }}
-    {{ cost }}
+    {{#if editing}}
+      <input type="text" id="edit-name" value="{{ name }}" />
+      <input type="text" id="edit-cost" value="{{ cost }}" />
+    {{/if}}
+      <span class="name" >{{ name }} </span>
+      <span class="cost" >{{ cost }} </span>
   </li>
 </template>
