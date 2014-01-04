@@ -1,37 +1,102 @@
 <head>
-  <title>MoneyBanker</title>
+<title>MoneyBanker</title>
 </head>
 
 <body>
+<div class="span10 offset1 container-fluid">
   {{> main}}
+</div>
 </body>
 
 <template name="main">
-  <h1>Hello World!</h1>
-  {{ greeting }}
+<div class="well">
+  <h1> {{ greeting }} </h1>
+</div>
 
-  <h3>Costs</h3>
-  <input type="text" value="" id='name' />
-  <input type="text" value="" id='cost' />
-  <input type="button" value="Add cost" id="add-cost" />
+<div class="row-fluid">
+  <div class="span5">
+    <form class="form-horizontal">
+      <fieldset>
+        <legend>Incomes</legend>
+        <div class="control-group">
+          <label class="control-label"> Name</label>
+          <div class="controls">
+            <input type="text" value="" id='income-name' placeholder="Name" />
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label"> Cost </label>
+          <div class="controls">
+            <input type="text" value="" id='income-value' placeholder="Cost" />
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <input type="button" class="btn" id="add-income" value="Add Income" />
+          </div>
+        </div>
+      </fieldset>
+    </form>
 
-  <ul>
-    {{#each costs}}
-      {{> cost}}
-    {{/each}}
-  </ul>
+    <div id="row-fluid">
+      <div class="span6 offset3">
+        <ul>
+          {{#each incomes}}
+          {{> elem}}
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="span5 offset6">
+    <form class="form-horizontal">
+      <fieldset>
+        <legend>Costs</legend>
+        <div class="control-group">
+          <label class="control-label"> Name</label>
+          <div class="controls">
+            <input type="text" value="" id='cost-name' placeholder="Name" />
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label"> Cost </label>
+          <div class="controls">
+            <input type="text" value="" id='cost-value' placeholder="Cost" />
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <input type="button" class="btn" id="add-cost" value="Add Cost" />
+          </div>
+        </div>
+      </fieldset>
+    </form>
+
+    <div class="row-fluid">
+      <div class="span6 offset3">
+        <ul>
+          {{#each costs}}
+          {{> elem}}
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 </template>
 
-<template name='cost'>
-  <li>
-    {{#if editing}}
-      <input type="text" id="edit-name" value="{{ name }}" />
-      <input type="text" id="edit-cost" value="{{ cost }}" />
-    {{else}}
-      <span class="name" >{{ name }} </span>
-      <span class="cost" >{{ cost }} </span>
-      <span class="del" > (X) </span>
-    {{/if}}
-  </li>
+<template name='elem'>
+<li>
+  {{#if editing}}
+    <input type="text" id="edit-name" value="{{ name }}" />
+    <input type="text" id="edit-cost" value="{{ cost }}" />
+  {{else}}
+    <span class="name" >{{ name }} </span>
+    <span class="cost" >{{ cost }} </span>
+    <i class="icon-remove" />
+{{/if}}
+</li>
 </template>
