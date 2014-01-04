@@ -27,8 +27,8 @@ Incomes.deny
     fields.indexOf("owner") > -1
 
 if Meteor.isClient
-  Meteor.subscribe "costs"
-  Meteor.subscribe "incomes"
+  Meteor.subscribe "costs", Meteor.userId()
+  Meteor.subscribe "incomes", Meteor.userId()
 
   Template.main.greeting = ->
     "Welcome to MoneyBanker"
@@ -102,8 +102,8 @@ if Meteor.isClient
         Incomes.remove(t.data._id)
 
 if Meteor.isServer
-  Meteor.publish "costs", ->
-    Costs.find({ owner: this.userId})
-  Meteor.publish "incomes", ->
-    Incomes.find({ owner: this.userId})
+  Meteor.publish "costs", (user) ->
+    Costs.find({ owner: user})
+  Meteor.publish "incomes", (user) ->
+    Incomes.find({ owner: user})
 
